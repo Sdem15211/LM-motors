@@ -1,6 +1,5 @@
 import "./styles/style.css";
 import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import SplitType from "split-type";
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -15,16 +14,18 @@ document.addEventListener("DOMContentLoaded", function () {
 
   let heroTimeline = gsap.timeline();
 
+  gsap.set(heroHeading, { opacity: 1 });
+
   heroTimeline
     .fromTo(hero_overlay, { opacity: 1 }, { opacity: 0, duration: 1.5 })
     .from(
       splitHeading.chars,
       {
-        y: 100,
+        y: "100%",
         opacity: 0,
         duration: 1.5,
-        ease: "expo.inOut",
-        stagger: 0.01,
+        ease: "expo.out",
+        stagger: 0.02,
       },
       "-=1"
     )
@@ -46,72 +47,41 @@ document.addEventListener("DOMContentLoaded", function () {
       },
       "<"
     );
+  // background color change
 
-  // first line animation
-
-  const path1 = document.getElementById("path1");
-  const length1 = path1.getTotalLength();
-
-  gsap.set(path1, {
-    strokeDasharray: length1,
-    strokeDashoffset: length1,
-  });
-
-  gsap.to(path1, {
-    strokeDashoffset: 0,
-    ease: "none",
+  let bgTl = gsap.timeline({
     scrollTrigger: {
-      trigger: ".line_1",
-      start: "top bottom",
-      end: "center center",
-      scrub: true,
-      once: true,
+      trigger: ".section_home-import",
+      start: "top 60%",
+      end: "bottom 80%",
+      toggleActions: "play reverse play reverse",
     },
   });
 
-  // second line animation
-
-  const path2 = document.getElementById("path2");
-  const length2 = path2.getTotalLength();
-
-  gsap.set(path2, {
-    strokeDasharray: length2,
-    strokeDashoffset: length2,
-  });
-
-  gsap.to(path2, {
-    strokeDashoffset: 0,
-    ease: "none",
-    scrollTrigger: {
-      trigger: ".line_2",
-      start: "top center",
-      end: "bottom 70%",
-      scrub: true,
-      once: true,
-    },
-  });
-
-  // third line animation
-
-  const path3 = document.getElementById("path3");
-  const length3 = path3.getTotalLength();
-
-  gsap.set(path3, {
-    strokeDasharray: length3,
-    strokeDashoffset: length3,
-  });
-
-  gsap.to(path3, {
-    strokeDashoffset: 0,
-    ease: "none",
-    scrollTrigger: {
-      trigger: ".line_3",
-      start: "top center",
-      end: "bottom center",
-      scrub: true,
-      once: true,
-    },
-  });
+  bgTl
+    .to(".main-wrapper.is-home", {
+      backgroundColor: "#D6D7D8",
+      duration: 0.7,
+      ease: "power4.out",
+    })
+    .to(
+      ".nav_link",
+      {
+        color: "#050606",
+        duration: 0.7,
+        ease: "power4.out",
+      },
+      "<"
+    )
+    .to(
+      ".nav_logo-embed",
+      {
+        color: "#050606",
+        duration: 0.7,
+        ease: "power4.out",
+      },
+      "<"
+    );
 
   // intro text animation
 
@@ -180,147 +150,6 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
-  // timeline animations
-
-  const line1 = document.getElementById("line4");
-  const length4 = line1.getTotalLength();
-
-  gsap.set(line1, {
-    strokeDasharray: length4,
-    strokeDashoffset: length4,
-  });
-
-  gsap.to(line1, {
-    strokeDashoffset: 0,
-    ease: "power4.out",
-    scrollTrigger: {
-      trigger: ".line_4",
-      start: "top center",
-      end: "bottom center",
-      scrub: true,
-      once: true,
-    },
-  });
-
-  const icons = document.querySelectorAll("[icons]");
-  console.log(icons);
-
-  icons.forEach((icon) => {
-    gsap.from(icon, {
-      scale: 0,
-      duration: 1,
-      ease: "power4.out",
-      scrollTrigger: {
-        trigger: icon,
-        start: "top center",
-      },
-    });
-  });
-
-  const timelineTexts = document.querySelectorAll("[timeline-text]");
-  const timelineOverlays = document.querySelectorAll(".timeline_img-overlay");
-
-  timelineTexts.forEach((text, index) => {
-    let timelineTl = gsap.timeline({
-      scrollTrigger: {
-        trigger: text,
-        start: "top 45%",
-        end: "bottom center",
-      },
-    });
-    timelineTl
-      .from(text, {
-        opacity: 0,
-        duration: 1,
-        ease: "power4.out",
-      })
-      .to(
-        timelineOverlays[index],
-        {
-          y: "100%",
-          duration: 1,
-          ease: "expo.inOut",
-        },
-        "<"
-      );
-  });
-
-  const line2 = document.getElementById("line5");
-  const length5 = line2.getTotalLength();
-
-  gsap.set(line2, {
-    strokeDasharray: length5,
-    strokeDashoffset: length5,
-  });
-
-  gsap.to(line2, {
-    strokeDashoffset: 0,
-    ease: "none",
-    scrollTrigger: {
-      trigger: ".line_5",
-      start: "top center",
-      end: "bottom center",
-      scrub: true,
-      once: true,
-    },
-  });
-
-  const line3 = document.getElementById("line6");
-  const length6 = line3.getTotalLength();
-
-  gsap.set(line3, {
-    strokeDasharray: length6,
-    strokeDashoffset: length6,
-  });
-
-  gsap.to(line3, {
-    strokeDashoffset: 0,
-    ease: "none",
-    scrollTrigger: {
-      trigger: ".line_6",
-      start: "top center",
-      end: "bottom center",
-      scrub: true,
-      once: true,
-    },
-  });
-
-  // background color change
-
-  let bgTl = gsap.timeline({
-    scrollTrigger: {
-      trigger: ".section_home-import",
-      start: "top 60%",
-      end: "bottom 80%",
-      toggleActions: "play reverse play reverse",
-    },
-  });
-
-  bgTl
-    .to(".main-wrapper.is-home", {
-      backgroundColor: "#D6D7D8",
-      duration: 0.7,
-      ease: "power4.out",
-    })
-    .to(
-      ".nav_link",
-      {
-        color: "#050606",
-        duration: 0.7,
-        ease: "power4.out",
-      },
-      "<"
-    )
-    .to(
-      ".nav_logo-embed",
-      {
-        color: "#050606",
-        duration: 0.7,
-        ease: "power4.out",
-      },
-      "<"
-    );
-
   // te koop card hover animation
 
   const cards = document.querySelectorAll(".card_background");
@@ -358,5 +187,213 @@ document.addEventListener("DOMContentLoaded", function () {
         });
       });
     }
+  });
+
+  let mm = gsap.matchMedia();
+
+  mm.add("(min-width: 768px)", () => {
+    // first line animation
+
+    const path1 = document.getElementById("path1");
+    const length1 = path1.getTotalLength();
+
+    gsap.set(path1, {
+      strokeDasharray: length1,
+      strokeDashoffset: length1,
+    });
+
+    gsap.to(path1, {
+      strokeDashoffset: 0,
+      ease: "none",
+      scrollTrigger: {
+        trigger: ".line_1",
+        start: "top bottom",
+        end: "center center",
+        scrub: true,
+        once: true,
+      },
+    });
+
+    // second line animation
+
+    const path2 = document.getElementById("path2");
+    const length2 = path2.getTotalLength();
+
+    gsap.set(path2, {
+      strokeDasharray: length2,
+      strokeDashoffset: length2,
+    });
+
+    gsap.to(path2, {
+      strokeDashoffset: 0,
+      ease: "none",
+      scrollTrigger: {
+        trigger: ".line_2",
+        start: "top center",
+        end: "bottom 70%",
+        scrub: true,
+        once: true,
+      },
+    });
+
+    // third line animation
+
+    const path3 = document.getElementById("path3");
+    const length3 = path3.getTotalLength();
+
+    gsap.set(path3, {
+      strokeDasharray: length3,
+      strokeDashoffset: length3,
+    });
+
+    gsap.to(path3, {
+      strokeDashoffset: 0,
+      ease: "none",
+      scrollTrigger: {
+        trigger: ".line_3",
+        start: "top center",
+        end: "bottom center",
+        scrub: true,
+        once: true,
+      },
+    });
+  });
+  mm.add("(min-width: 479px)", () => {
+    // timeline animations
+
+    const line1 = document.getElementById("line4");
+    const length4 = line1.getTotalLength();
+
+    gsap.set(line1, {
+      strokeDasharray: length4,
+      strokeDashoffset: length4,
+    });
+
+    gsap.to(line1, {
+      strokeDashoffset: 0,
+      ease: "power4.out",
+      scrollTrigger: {
+        trigger: ".line_4",
+        start: "top center",
+        end: "bottom 40%",
+        scrub: true,
+        once: true,
+      },
+    });
+
+    const icons = document.querySelectorAll("[icons]");
+    console.log(icons);
+
+    icons.forEach((icon) => {
+      gsap.from(icon, {
+        scale: 0,
+        opacity: 0,
+        duration: 1,
+        ease: "power4.out",
+        scrollTrigger: {
+          trigger: icon,
+          start: "top center",
+        },
+      });
+    });
+
+    const timelineTexts = document.querySelectorAll("[timeline-text]");
+    const timelineOverlays = document.querySelectorAll(".timeline_img-overlay");
+
+    timelineTexts.forEach((text, index) => {
+      let timelineTl = gsap.timeline({
+        scrollTrigger: {
+          trigger: text,
+          start: "top 45%",
+          end: "bottom center",
+        },
+      });
+      timelineTl
+        .from(text, {
+          opacity: 0,
+          duration: 1,
+          ease: "power4.out",
+        })
+        .to(
+          timelineOverlays[index],
+          {
+            y: "100%",
+            duration: 1,
+            ease: "expo.inOut",
+          },
+          "<"
+        );
+    });
+
+    const line2 = document.getElementById("line5");
+    const length5 = line2.getTotalLength();
+
+    gsap.set(line2, {
+      strokeDasharray: length5,
+      strokeDashoffset: length5,
+    });
+
+    gsap.to(line2, {
+      strokeDashoffset: 0,
+      ease: "none",
+      scrollTrigger: {
+        trigger: ".line_5",
+        start: "top center",
+        end: "bottom center",
+        scrub: true,
+        once: true,
+      },
+    });
+
+    const line3 = document.getElementById("line6");
+    const length6 = line3.getTotalLength();
+
+    gsap.set(line3, {
+      strokeDasharray: length6,
+      strokeDashoffset: length6,
+    });
+
+    gsap.to(line3, {
+      strokeDashoffset: 0,
+      ease: "none",
+      scrollTrigger: {
+        trigger: ".line_6",
+        start: "top center",
+        end: "bottom center",
+        scrub: true,
+        once: true,
+      },
+    });
+  });
+
+  mm.add("(max-width: 479px)", () => {
+    const timelineTexts = document.querySelectorAll("[timeline-text]");
+    const images = document.querySelectorAll(".wij_timeline-img-wrap");
+
+    images.forEach((img, index) => {
+      let timelineTl = gsap.timeline({
+        scrollTrigger: {
+          trigger: img,
+          start: "top 70%",
+          end: "bottom center",
+        },
+      });
+      timelineTl
+
+        .from(img, {
+          opacity: 0,
+          duration: 1,
+          ease: "expo.inOut",
+        })
+        .from(
+          timelineTexts[index],
+          {
+            opacity: 0,
+            duration: 1,
+            ease: "power4.out",
+          },
+          "-=0.5"
+        );
+    });
   });
 });

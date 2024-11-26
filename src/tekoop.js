@@ -1,7 +1,46 @@
-import "./styles/style.css";
 import { gsap } from "gsap";
 
 document.addEventListener("DOMContentLoaded", function () {
+  // hero animation
+  const heading = document.querySelector(".hero_heading");
+  const intro = document.querySelector(".hero_intro");
+  const grid = document.querySelector(".tekoop_grid-item-wrap");
+
+  let heroTl = gsap.timeline({});
+
+  gsap.set(heading, { opacity: 1 });
+  gsap.set(intro, { opacity: 1 });
+  gsap.set(grid, { opacity: 1 });
+
+  heroTl
+    .from(heading, {
+      x: -25,
+      opacity: 0,
+      duration: 1,
+      ease: "power4.out",
+    })
+    .from(
+      intro,
+      {
+        x: -25,
+        opacity: 0,
+        duration: 1,
+        ease: "power4.out",
+      },
+      "-=0.8"
+    )
+    .from(
+      grid,
+      {
+        opacity: 0,
+        y: 25,
+        duration: 1,
+        ease: "power4.out",
+        stagger: 0.1,
+      },
+      "-=0.5"
+    );
+
   // te koop card hover animation
 
   const cards = document.querySelectorAll(".card_background");
